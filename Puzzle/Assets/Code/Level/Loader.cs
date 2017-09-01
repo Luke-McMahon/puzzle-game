@@ -94,7 +94,15 @@ public class Loader : MonoBehaviour
         // If we actually got something
         if (go != null)
         {
-            Instantiate(go, new Vector3(x, y, 0.0f), Quaternion.identity, this.transform);
+            GameObject g = Instantiate(go, new Vector3(x, y, 0.0f), Quaternion.identity, this.transform);
+            if(g.tag == "Player" || g.tag == "Finish")
+            {
+
+            }
+            else
+            {
+                g.transform.SetParent(transform.GetChild(0));
+            }
         }
     }
 
