@@ -90,7 +90,7 @@ public class Loader : MonoBehaviour
 
         // Get the GameObject we want to spawn
         GameObject go = GameObjectFromColour(colour);
-        
+
         // If we actually got something
         if (go != null)
         {
