@@ -6,6 +6,7 @@ using UnityEngine;
 /// Reads level image from the StreamingAssets folder,
 /// Creates objects/level from the image's pixel color.
 /// </summary>
+[ExecuteInEditMode]
 public class Loader : MonoBehaviour
 {
     // This is a string string for early development purposes
@@ -18,7 +19,7 @@ public class Loader : MonoBehaviour
 
     // A look up table for the GameObjects we can create base on a colour key
     private Dictionary<Color32, GameObject> objectDictionary;
-    
+
     private void Start()
     {
         objectDictionary = new Dictionary<Color32, GameObject>();
@@ -29,17 +30,26 @@ public class Loader : MonoBehaviour
             // Add it to the look up table
             objectDictionary.Add(cto.Colour, cto.Object);
         }
+        
+    }
 
-        LoadLevel();
+    /// <summary>
+    /// Calls the private LoadLevel function to do the actual working
+    /// </summary>
+    /// <param name="filename">File to load level from</param>
+    public void Load(string filename)
+    {
+        LoadLevel(filename);
     }
 
     /// <summary>
     /// Creates a level from an image file (image MUST have transparency)
     /// </summary>
-    private void LoadLevel()
+    /// <param name="filename">File to load level from</param>
+    private void LoadLevel(string filename)
     {
         // Get the correct file path
-        string filePath = Application.dataPath + "/StreamingAssets/Levels/" + LevelFileName;
+        string filePath = Application.dataPath + "/StreamingAssets/Levels/" + filename + ".png";
 
         // Grab all the bytes from the image so we can create a new Texture2D from it
         byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
